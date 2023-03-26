@@ -1,0 +1,359 @@
+"""
+Lorenzo DeSpirito
+
+General Chemistry Program. This program is intended to help me study and
+quickly make chemistry conversions.
+
+-------------------------------------------------------------------------------
+Sprint One Requirement Example Location
+
+Print arguments using sep=() and end=(): Line 49
+Input function: Line 94
+Numerical Operators:
+    **: Line 173
+    *(Numerical): Line 245
+    /: Line 202
+    %: Line 273
+    //: Line 284
+    +(Numerical): Line 146
+    -: Line 133
+    *(String): Line 291
+    +(String): Line 180
+-------------------------------------------------------------------------------
+Sprint Two Requirement Example Location
+
+Shortcut Operator: Line 333
+Standard Conditional Structures:
+    if: Line 99
+    elif: Line 337
+    else: Line 135
+Relational Operators:
+    ==: Line 128
+    !=: Line 331
+    >: Line 331
+Boolean Operators:
+    not: Line 331
+    and: Line 331
+    or: Line 107
+Standard Iterative Structures:
+    while: Line 107
+    for: Line 109
+    range(): Line 337
+    in: Line 109
+Functions Definition: Line 48 Call: Line 294
+Function Accept Parameters: Line 350
+"""
+
+
+def main():
+    print("\nWelcome", ", User.", sep="", end=" ")
+    print("Let's begin.\n")
+
+    # List of the first thirty-six elements of the periodic table. These are
+    # the most common elements and the one my professor says we will be tested
+    # on. [Element symbol, Element, Number of Protons]
+    elements = [["H", "Hydrogen", ("Protons: ", 1)],
+                ["He", "Helium", ("Protons: ", 2)],
+                ["Li", "Lithium", ("Protons: ", 3)],
+                ["Be", "Beryllium", ("Protons: ", 4)],
+                ["B", "Boron", ("Protons: ", 5)],
+                ["C", "Carbon", ("Protons: ", 6)],
+                ["N", "Nitrogen", ("Protons: ", 7)],
+                ["O", "Oxygen", ("Protons: ", 8)],
+                ["F", "Fluorine", ("Protons: ", 9)],
+                ["Ne", "Neon", ("Protons: ", 10)],
+                ["Na", "Sodium", ("Protons: ", 11)],
+                ["Mg", "Magnesium", ("Protons: ", 12)],
+                ["Al", "Aluminum", ("Protons: ", 13)],
+                ["Si", "Silicon", ("Protons: ", 14)],
+                ["P", "Phosphorus", ("Protons: ", 15)],
+                ["S", "Sulfur", ("Protons: ", 16)],
+                ["Cl", "Chlorine", ("Protons: ", 17)],
+                ["Ar", "Argon", ("Protons: ", 18)],
+                ["K", "Potassium", ("Protons: ", 19)],
+                ["Ca", "Calcium", ("Protons: ", 20)],
+                ["Sc", "Scandium", ("Protons: ", 21)],
+                ["Ti", "Titanium", ("Protons: ", 22)],
+                ["V", "Vanadium", ("Protons: ", 23)],
+                ["Cr", "Chromium", ("Protons: ", 24)],
+                ["Mn", "Manganese", ("Protons: ", 25)],
+                ["Fe", "Iron", ("Protons: ", 26)],
+                ["Co", "Cobalt", ("Protons: ", 27)],
+                ["Ni", "Nickel", ("Protons: ", 28)],
+                ["Cu", "Copper", ("Protons: ", 29)],
+                ["Zn", "Zinc", ("Protons: ", 30)],
+                ["Ga", "Gallium", ("Protons: ", 31)],
+                ["Ge", "Germanium", ("Protons: ", 32)],
+                ["As", "Arsenic", ("Protons: ", 33)],
+                ["Se", "Selenium", ("Protons: ", 34)],
+                ["Br", "Bromine", ("Protons: ", 35)],
+                ["Kr", "Krypton", ("Protons: ", 36)]]
+
+    # Identifies if the user wants info on an element, conversion, or
+    # calculator.
+    problem_identifier = input(
+        "Choose one of the following: \nElement Info = 1, Conversions = 2, "
+        "Remainder and Floor Division Calculator = 3\n")
+
+    # Lines below are executed if the user wants element info
+    if problem_identifier == "1":
+        element_input = input(
+            "Which of the first thirty-six elements would you like to know "
+            "more about? (Name or Symbol) ")
+        continue_find_element = input(
+            "Do you want info on another element after this one? ")
+
+        # Executed if user wants info on multiple elements
+        while (continue_find_element == "Yes") or \
+                (continue_find_element == "yes"):
+            for element in elements:
+                for i in element:
+                    if element_input == i:
+                        print(element, "\n")
+            element_input = input(
+                "Which element would you like to know more about? ")
+            continue_find_element = input(
+                "Do you want info on another element after this one? ")
+
+        # Executed if the user only wants info on one element. Same code is
+        # used without the while loop
+        for element in elements:
+            for i in element:
+                if element_input == i:
+                    print(element, "\n")
+
+        # Lines 71-78: Identifying the charge of an element
+        continue_find_charge = input(
+            "Do you want to find the charge of an element? ")
+        if (continue_find_charge == "Yes") or (continue_find_charge == "yes"):
+            num_protons = int(
+                input("What is the number of protons in the element? "))
+            num_electrons = int(
+                input("What is the number of electrons in the element? "))
+            charge = num_protons - num_electrons
+            print("The charge of your element is", charge)
+        else:
+            print("\n...Continuing...\n")
+
+        # Lines 81-88: Identifying the Atomic Mass of a single atom
+        continue_find_mass = input("Do you want to find the mass of your "
+                                   "atom? ")
+        if (continue_find_mass == "Yes") or (continue_find_mass == "yes"):
+            num_protons = int(input("What is the number of protons in the "
+                                    "atom? "))
+            num_neutrons = int(
+                input("What is the number of neutrons in the atom? "))
+            mass = num_protons + num_neutrons
+            print("The mass of your atom is", mass)
+        else:
+            print("\n")
+
+    # Lines below are executed if User wants conversion answers
+    if problem_identifier == "2":
+
+        # Code for the prefix table: lines 94-108.
+        prefix_table_question = input("\nDo you want to see the prefix "
+                                      "table? ")
+
+        if (prefix_table_question == "Yes") or \
+                (prefix_table_question == "yes"):
+            print("""
+            Prefix              Symbol              Multiplier
+    
+            giga                G                   10^9
+            mega                M                   10^6
+            kilo                k                   10^3
+            deci                d                   10^-1
+            centi               c                   10^-2
+            milli               m                   10^-3
+            micro               u                   10^-6
+            nano                n                   10^-9
+            """)
+        # Lines 110-112 group data that belongs together
+        prefix_grouping = [["giga", "G", 10 ** 9], ["mega", "M", 10 ** 6],
+                           ["kilo", "k", 10 ** 3], ["deci", "d", 10 ** -1],
+                           ["centi", "c", 10 ** -2], ["milli", "m", 10 ** -3],
+                           ["micro", "u", 10 ** -6],
+                           ["nano", "n", 10 ** -9]]
+
+        continue_prefix_calculations = input(
+            "Would you like to" + " convert prefixes? ")
+
+        if (continue_prefix_calculations == "Yes") or (
+                continue_prefix_calculations == "yes"):
+            # Lines 118-135 takes the powered portion of the identified
+            # prefixes and finds the conversion.
+            while (continue_prefix_calculations == "Yes") or (
+                    continue_prefix_calculations == "yes"):
+                user_current_prefix = input(
+                    "What prefix do you have (use exact symbol)? ")
+                user_desired_prefix = input(
+                    "What prefix would you like (use exact symbol)? ")
+                for prefix_choice_one in prefix_grouping:
+                    for i in prefix_choice_one:
+                        if user_current_prefix == i:
+                            prefix_one = prefix_choice_one[2]
+
+                            for prefix_choice_two in prefix_grouping:
+                                for n in prefix_choice_two:
+                                    if user_desired_prefix == n:
+                                        prefix_two = prefix_choice_two[2]
+
+                                        answer_prefix = prefix_two / prefix_one
+                                        print("\nThere are approximately ",
+                                              answer_prefix,
+                                              user_desired_prefix + "m ",
+                                              "in ",
+                                              "1" + user_current_prefix + "m",
+                                              sep="")
+
+                                        continue_prefix_calculations = input(
+                                            "\nContinue converting prefixes? ")
+
+        # Code for unit conversions below
+        print("\n\n...Moving on to unit conversions... \n\n")
+        type_of_conversion = input("\nIs this a mass or length conversion? ")
+
+        # Code for mass conversions: lines 142-153.
+        if (type_of_conversion == "Mass") or (type_of_conversion == "mass"):
+            user_current_mass_unit = input(
+                "What unit do you have (Kilogram or Pound)? ")
+
+            if (user_current_mass_unit == "Kilogram") or (
+                    user_current_mass_unit == "kilogram"):
+                num_of_kg = float(input("Number of kilograms: "))
+                kg_to_lb = (num_of_kg * 2.2046)
+                print(str(num_of_kg), "kgs is equal to ", str(kg_to_lb),
+                      "lbs \n", sep="")
+
+            if (user_current_mass_unit == "Pound") or (
+                    user_current_mass_unit == "pound"):
+                num_of_lb = float(input("Number of pounds: "))
+                lb_to_kg = (num_of_lb / 2.2046)
+                print(str(num_of_lb), "lbs is equal to ", str(lb_to_kg),
+                      "kgs \n", sep="")
+
+        # Code for length conversions: lines 156-167.
+        if (type_of_conversion == "Length") or (type_of_conversion ==
+                                                "length"):
+            user_current_length_unit = input(
+                "What unit do you have (Inch or Centimeter)? ")
+
+            if (user_current_length_unit == "Centimeter") or (
+                    user_current_length_unit == "centimeter"):
+                num_of_cm = float(input("Number of centimeters: "))
+                cm_to_in = (num_of_cm * 0.39370)
+                print(str(num_of_cm), "cms is equal to ", str(cm_to_in),
+                      "ins\n", sep="")
+
+            if (user_current_length_unit == "Inch") or (
+                    user_current_length_unit == "inch"):
+                num_of_in = float(input("Number of inches: "))
+                in_to_cm = (num_of_in / 0.39370)
+                print(str(num_of_in), "ins is equal to ", str(in_to_cm),
+                      "cms \n", sep="")
+        # The above code was made to be as accurate as possible for my
+        # Chemistry class. It must be more accurate than Google
+
+    # Remainder and Floor Division Calculator Code Below
+    if problem_identifier == "3":
+
+        choose_calculator = input(
+            "Which calculator would you like to use (Remainder or Floor)? ")
+
+        continue_remain_calc = "Yes"
+
+        # Lines 178-184: Remainder Calculator
+        if (choose_calculator == "Remainder") or (
+                choose_calculator == "remainder"):
+            while (continue_remain_calc == "Yes") or (
+                    continue_remain_calc == "yes"):
+                num_one = float(input("First Number: "))
+                num_two = float(input("Second Number: "))
+                calc_remain_answer = num_one % num_two
+                print(calc_remain_answer)
+                continue_remain_calc = input(
+                    "Would you like to keep using the Remainder Calculator? ")
+
+        # Lines 187-193: Floor Division Calculator
+        if (choose_calculator == "Floor") or (choose_calculator == "floor"):
+            while (continue_remain_calc == "Yes") or (
+                    continue_remain_calc == "yes"):
+                num_one = float(input("First Number: "))
+                num_two = float(input("Second Number: "))
+                calc_floor_answer = num_one // num_two
+                print(calc_floor_answer)
+                continue_remain_calc = input(
+                    "Would you like to keep using the Floor Calculator? ")
+
+
+main()
+
+
+"""
+I use this program in my Chemistry I class from the moment I finished 
+creating it. This is the first program I've made that brings me some 
+actual value. So, that's cool :D
+    
+-----------------------------------------------------------------------
+    
+Below this multi-line comment is the Sprint Two portion of this program.
+According to PEP8 standards, functions should be defined in the beginning
+of the program; but due to this program being a grade, I have chosen to
+ignore this standard in favor of easy identification between Sprint One
+and Sprint Two integrations. The exception is the "main" function which was 
+needed in the beginning of the code.
+"""
+
+
+def program_iteration():
+    answer = input("Would you like to continue the program? ")
+
+    if (answer == "Yes") or (answer == "yes"):
+        main()
+    elif (answer == "No") or (answer == "no"):
+        print("\n", ("_" * 10), "Goodbye, User", ("_" * 10))
+    else:
+        answer = input("Would you like to use the program again? (Yes or No) ")
+
+
+program_iteration()
+# In order to run this program more than twice, the call 'program_iteration
+# needs to be in main() function. This isn't done to keep the integration
+# projects separated for easy grading.
+
+
+def password():
+    count = 0
+    attempt = ""
+    passwordfunc = "Hello"
+
+    while not(count > 2) and (attempt != passwordfunc):
+        attempt = input("What is the password? ")
+        count += 1
+        if attempt == passwordfunc:
+            print("Password Accepted.")
+            main()
+        elif count in range(3):
+            print("Wrong. Try again")
+
+    print("Moving on to password function\n")
+
+
+password()
+
+# The above code is how I would have a basic secure password setup before
+# starting the program. Again, it is not a part of main() for ease of grading.
+# Code below is for the sole purpose of completing Sprint Two.
+
+
+def addition_calculator(num_one, num_two):
+    addition_answer = num_one + num_two
+    print(addition_answer)
+
+
+firstNum = int(input("Enter your first number: "))
+secondNum = int(input("Enter your second number: "))
+
+
+addition_calculator(firstNum, secondNum)
