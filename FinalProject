@@ -1,0 +1,499 @@
+"""
+
+Lorenzo DeSpirito
+This is a  program to help me practice chemistry.
+
+PyCharm does not seem to understand that the 'option' variables are defined
+before being called. It needs to be this way because the prompt changes
+depending on if you run the program more than once. There might be a better way
+to go about what I did, but I've spent so long on it that when I finally got
+it to work, I felt proud. It is defined by user input. Please don't take points
+off because PyCharm hates me D:
+
+"""
+
+__author__ = "Lorenzo DeSpirito"
+
+continue_program = ""
+
+current_program = ""
+
+find_charge_counter = 0
+find_mass_counter = 0
+convert_prefix_counter = 0
+convert_units_counter = 0
+remainder_floor_counter = 0
+
+elements = [["H", "Hydrogen", ("Protons: ", 1)],
+            ["He", "Helium", ("Protons: ", 2)],
+            ["Li", "Lithium", ("Protons: ", 3)],
+            ["Be", "Beryllium", ("Protons: ", 4)],
+            ["B", "Boron", ("Protons: ", 5)],
+            ["C", "Carbon", ("Protons: ", 6)],
+            ["N", "Nitrogen", ("Protons: ", 7)],
+            ["O", "Oxygen", ("Protons: ", 8)],
+            ["F", "Fluorine", ("Protons: ", 9)],
+            ["Ne", "Neon", ("Protons: ", 10)],
+            ["Na", "Sodium", ("Protons: ", 11)],
+            ["Mg", "Magnesium", ("Protons: ", 12)],
+            ["Al", "Aluminum", ("Protons: ", 13)],
+            ["Si", "Silicon", ("Protons: ", 14)],
+            ["P", "Phosphorus", ("Protons: ", 15)],
+            ["S", "Sulfur", ("Protons: ", 16)],
+            ["Cl", "Chlorine", ("Protons: ", 17)],
+            ["Ar", "Argon", ("Protons: ", 18)],
+            ["K", "Potassium", ("Protons: ", 19)],
+            ["Ca", "Calcium", ("Protons: ", 20)],
+            ["Sc", "Scandium", ("Protons: ", 21)],
+            ["Ti", "Titanium", ("Protons: ", 22)],
+            ["V", "Vanadium", ("Protons: ", 23)],
+            ["Cr", "Chromium", ("Protons: ", 24)],
+            ["Mn", "Manganese", ("Protons: ", 25)],
+            ["Fe", "Iron", ("Protons: ", 26)],
+            ["Co", "Cobalt", ("Protons: ", 27)],
+            ["Ni", "Nickel", ("Protons: ", 28)],
+            ["Cu", "Copper", ("Protons: ", 29)],
+            ["Zn", "Zinc", ("Protons: ", 30)],
+            ["Ga", "Gallium", ("Protons: ", 31)],
+            ["Ge", "Germanium", ("Protons: ", 32)],
+            ["As", "Arsenic", ("Protons: ", 33)],
+            ["Se", "Selenium", ("Protons: ", 34)],
+            ["Br", "Bromine", ("Protons: ", 35)],
+            ["Kr", "Krypton", ("Protons: ", 36)]]
+
+prefix_grouping = [["giga", "G", 10 ** 9], ["mega", "M", 10 ** 6],
+                   ["kilo", "k", 10 ** 3], ["deci", "d", 10 ** -1],
+                   ["centi", "c", 10 ** -2], ["milli", "m", 10 ** -3],
+                   ["micro", "u", 10 ** -6],
+                   ["nano", "n", 10 ** -9]]
+
+
+def check_if_y_or_n(user_input):
+    """
+    :param user_input:
+    :return: user input if 'y' or 'n'
+    """
+
+    check_user_input = user_input
+    check_user_input_lower = check_user_input.lower()
+
+    while (check_user_input_lower != "y") and (check_user_input_lower != "n"):
+        check_user_input = input("Please type either 'y' or 'n': ")
+        check_user_input_lower = check_user_input.lower()
+
+    return check_user_input_lower
+
+
+def welcome_the_user():
+    print("\nWelcome", ", User.", sep="", end=" ")
+    print("Let's begin.\n")
+
+
+def print_first_thirty_six_elements():
+    option_show_table = check_if_y_or_n(input("Would you like to see a chart"
+                                              " of the first 36 elements? "
+                                              "y/n: "))
+
+    if option_show_table == "y":
+        print("""
+        Symbol                  Name       Number of Protons
+          H...................Hydrogen............1
+          He..................Helium..............2
+          Li..................Lithium.............3
+          Be..................Beryllium...........4
+          B...................Boron...............5
+          C...................Carbon..............6
+          N...................Nitrogen............7
+          O...................Oxygen..............8
+          F...................Fluorine............9
+          Ne..................Neon................10
+          Na..................Sodium..............11
+          Mg..................Magnesium...........12
+          Al..................Aluminum............13
+          Si..................Silicon.............14
+          P..................Phosphorus...........15
+          S..................Sulfur...............16
+          Cl.................Chlorine.............17
+          Ar.................Argon................18
+          K..................Potassium............19
+          Ca.................Calcium..............20
+          Sc.................Scandium.............21
+          Ti.................Titanium.............22
+          V..................Vanadium.............23
+          Cr.................Chromium.............24
+          Mn.................Magnesium............25
+          Fe.................Iron.................26
+          Co.................Cobalt...............27
+          Ni.................Nickel...............28
+          Cu.................Copper...............29
+          Zn.................Zinc.................30
+          Ga.................Gallium..............31
+          Ge.................Germanium............32
+          As.................Arsenic..............33
+          Se.................Selenium.............34
+          Br.................Bromine..............35
+          Kr.................Krypton..............36
+          
+        """)
+
+
+def find_charge_element():
+    """
+    Takes two inputs from the user, first are the number of proton(s), second
+    are the number of electron(s). Prints the difference of protons -
+    electrons.
+    """
+
+    global current_program
+    current_program = "'Finding Charge'"
+
+    global continue_program
+    continue_program = ""
+
+    global find_charge_counter
+
+    if find_charge_counter == 0:
+        option_find_charge = check_if_y_or_n(input("Would you like to find "
+                                                   "the charge of your "
+                                                   "element? y/n: "))
+
+    if find_charge_counter > 0:
+        option_find_charge = "y"
+
+    if option_find_charge == "y":
+        num_protons = int(
+            input("What is the number of protons in the element? "))
+        num_electrons = int(
+            input("What is the number of electrons in the element? "))
+        charge = num_protons - num_electrons
+        print("The charge of your element is", charge, "\n")
+
+    find_charge_counter += 1
+
+    if option_find_charge == "y":
+        continue_the_program()
+
+
+def find_mass_element():
+    """
+    Takes two inputs from the user, first are the proton(s), second are
+    the electron(s). Prints the sum of protons plus electrons.
+    """
+
+    global current_program
+    current_program = "'Finding Mass'"
+
+    global continue_program
+    continue_program = ""
+
+    global find_mass_counter
+
+    if find_mass_counter == 0:
+        option_find_mass = check_if_y_or_n(input("Would you like to find "
+                                                 "the mass of your element? "
+                                                 "y/n: "))
+
+    if find_mass_counter > 0:
+        option_find_mass = "y"
+
+    if option_find_mass == "y":
+        num_protons = int(input("What is the number of protons in the atom? "))
+        num_neutrons = int(input("What is the number of neutrons in the "
+                                 "atom? "))
+        mass = num_protons + num_neutrons
+        print("The mass of your atom is", mass, "\n")
+
+    find_mass_counter += 1
+
+    if option_find_mass == "y":
+        continue_the_program()
+
+
+def show_prefix_table():
+    option_show_pre_table = check_if_y_or_n(input("Would you like to see "
+                                                  "the prefix table? y/n: "))
+
+    if option_show_pre_table == "y":
+        print("""
+                    Prefix              Symbol              Multiplier
+    
+                    giga                G                   10^9
+                    mega                M                   10^6
+                    kilo                k                   10^3
+                    deci                d                   10^-1
+                    centi               c                   10^-2
+                    milli               m                   10^-3
+                    micro               u                   10^-6
+                    nano                n                   10^-9
+                    """)
+
+
+def convert_prefixes():
+    """
+    input one: gets the abbreviation of the prefix the user has
+    input two: gets the abbreviation of the desired prefix
+
+    Uses for loops to find the appropriate data inn the prefix_grouping
+    formula
+    """
+
+    global current_program
+    current_program = "'Converting Prefixes'"
+
+    global continue_program
+    continue_program = ""
+
+    global convert_prefix_counter
+
+    if convert_prefix_counter == 0:
+        option_convert_prefixes = check_if_y_or_n(input("Would you like to "
+                                                        "convert prefixes? "
+                                                        "y/n: "))
+
+    if convert_prefix_counter > 0:
+        option_convert_prefixes = "y"
+
+    if option_convert_prefixes == "y":
+        user_current_prefix = input("What prefix do you have? Use exact "
+                                    "symbol: ")
+        user_desired_prefix = input("What prefix would you like? Use exact "
+                                    "symbol: ")
+
+        for prefix_choice_one in prefix_grouping:
+            for i in prefix_choice_one:
+                if user_current_prefix == i:
+                    prefix_one = prefix_choice_one[2]
+
+                    for prefix_choice_two in prefix_grouping:
+                        for n in prefix_choice_two:
+                            if user_desired_prefix == n:
+                                prefix_two = prefix_choice_two[2]
+
+                                answer_prefix = prefix_one / prefix_two
+
+                                print("\n There are approximately ",
+                                      answer_prefix, user_desired_prefix +
+                                      "m ", "in ", "1" + user_current_prefix +
+                                      "m", sep="")
+
+    convert_prefix_counter += 1
+
+    if option_convert_prefixes == "y":
+        continue_the_program()
+
+
+def convert_units():
+    """
+    Identifies if the user wants to use a mass or length conversion with the
+    input 'm' or 'l'. Identifies what unit the user has and the users desired
+    units with inputs and converts it to the desired unit.
+    """
+
+    global current_program
+    current_program = "'Converting Units'"
+
+    global continue_program
+    continue_program = ""
+
+    global convert_units_counter
+
+    if convert_units_counter == 0:
+        option_convert_units = check_if_y_or_n(input("Would you like to "
+                                                     "convert units? y/n: "))
+
+    if convert_units_counter > 0:
+        option_convert_units = "y"
+
+    if option_convert_units == "y":
+        type_of_conversion = input("\nIs this a mass (m) or length (l) "
+                                   "conversion? ")
+        type_of_conversion_lower = type_of_conversion.lower()
+
+        if type_of_conversion_lower == "m":
+            user_current_mass_unit = input("What unit do you have? Kilogram "
+                                           "(K) or Pound (L): ")
+            user_current_mass_unit_lower = user_current_mass_unit.lower()
+
+            if user_current_mass_unit_lower == "k":
+                num_of_kg = float(input("Number of kilograms: "))
+                kg_to_lb = (num_of_kg * 2.2046)
+                print(str(num_of_kg), "kgs is equal to ", str(kg_to_lb),
+                      "lbs \n", sep="")
+
+            if user_current_mass_unit == "l":
+                num_of_lb = float(input("Number of pounds: "))
+                lb_to_kg = (num_of_lb / 2.2046)
+                print(str(num_of_lb), "lbs is equal to ", str(lb_to_kg),
+                      "kgs \n", sep="")
+
+        if type_of_conversion == "l":
+            usr_current_len_unit = input("What unit do you have? Inch(I) or "
+                                         "Centimeter(C): ")
+            user_current_length_unit_lower = usr_current_len_unit.lower()
+
+            if user_current_length_unit_lower == "c":
+                num_of_cm = float(input("Number of centimeters: "))
+                cm_to_in = (num_of_cm * 0.39370)
+                print(str(num_of_cm), "cms is equal to ", str(cm_to_in),
+                      "ins\n", sep="")
+
+            if user_current_length_unit_lower == "i":
+                num_of_in = float(input("Number of inches: "))
+                in_to_cm = (num_of_in / 0.39370)
+                print(str(num_of_in), "ins is equal to ", str(in_to_cm),
+                      "cms \n", sep="")
+
+    convert_units_counter += 1
+
+    if option_convert_units == "y":
+        continue_the_program()
+
+
+def calculate_remainder_floor():
+    """
+    Identifies if the user wants to use the floor or remainder calculator.
+    Takes two user defined numbers and calculates accordingly.
+    """
+
+    global current_program
+    current_program = "'Remainder/Floor Division'"
+
+    global continue_program
+    continue_program = ""
+
+    global remainder_floor_counter
+
+    if remainder_floor_counter == 0:
+        option_remainder_floor = check_if_y_or_n(input("Would you like to use"
+                                                       " the Remainder/Floor"
+                                                       " Calculator? y/n: "))
+
+    if remainder_floor_counter > 0:
+        option_remainder_floor = "y"
+
+    if option_remainder_floor == "y":
+        choose_calculator = input("Which calculator would you like to use, "
+                                  "Remainder(R) or Floor(F)? ")
+        choose_calculator_lower = choose_calculator.lower()
+
+        if choose_calculator_lower == "r":
+            num_one = float(input("First Number: "))
+            num_two = float(input("Second Number: "))
+            calc_remain_answer = num_one % num_two
+            print(calc_remain_answer)
+
+        if choose_calculator_lower == "f":
+            num_one = float(input("First Number: "))
+            num_two = float(input("Second Number: "))
+            calc_floor_answer = num_one // num_two
+            print(calc_floor_answer)
+
+    print("\n")
+
+    remainder_floor_counter += 1
+
+    if option_remainder_floor == "y":
+        continue_the_program()
+
+
+def continue_the_program():
+    """
+    A function to check if the user would like to continue the program. The
+    function knows which program it is on because of the current_program
+    variable.
+    At the beginning of each program, the current_program variable is changed
+    to the name of that function.
+    """
+
+    continue_program = check_if_y_or_n(input("Would you like to continue "
+                                             "the " + current_program +
+                                             " program? y/n: "))
+
+    if continue_program == "y":
+        if current_program == "'Finding Charge'":
+            find_charge_element()
+        elif current_program == "'Finding Mass'":
+            find_mass_element()
+        elif current_program == "'Converting Prefixes'":
+            convert_prefixes()
+        elif current_program == "'Converting Units'":
+            convert_units()
+        elif current_program == "'Remainder/Floor Division'":
+            calculate_remainder_floor()
+        else:
+            print("Invalid")
+
+    print("\n")
+
+
+def dumb_function():
+    """
+    The sole purpose of this function is to complete the project requirements.
+    Other than that, this function has no real use.
+    """
+
+    option_dumb_function = check_if_y_or_n(input("Would you like to use the "
+                                                 "dumb function? y/n: "))
+
+    if not(option_dumb_function == "n"):
+        print("Good, you really didn't have an option.")
+    else:
+        print("Well, that's too bad. If I'm required to make a soulless "
+              "function, you're required to use it, lol.")
+
+    try:
+        answer = int(input("What is one plus two? "))
+    except ValueError:
+        print("Trying to break the dumb function, huh? That's not nice. Well,"
+              " this is the only safeguard for this function, so don't do it"
+              " again.")
+        answer = int(input("Try again. Last chance. What is one plus two? "))
+
+    if answer == 3:
+        print("Correct! You're a genius!")
+    else:
+        print("Did... did you get it wrong? I hope you were just trying to "
+              "break the program.")
+
+    try:
+        answer_two = int(input("Pick a number between one and ten: "))
+    except ValueError:
+        print("Hey! Stop doing that!")
+        answer_two = int(input("Last chance. Pick a number between one and"
+                               " ten: "))
+
+    if (answer_two in range(2, 11)) or (answer_two in range(3, 5)):
+        print("Good Job!")
+    else:
+        print("Stop trying to break it!")
+
+
+def goodbye():
+    print(("_" * 10), "Goodbye, " + "User", ("_" * 10))
+
+
+def main():
+    welcome_the_user()
+
+    print_first_thirty_six_elements()
+
+    find_charge_element()
+
+    find_mass_element()
+
+    show_prefix_table()
+
+    convert_prefixes()
+
+    convert_units()
+
+    calculate_remainder_floor()
+
+    dumb_function()
+
+    goodbye()
+
+
+if __name__ == "__main__":
+    main()
+
